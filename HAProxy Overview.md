@@ -103,7 +103,7 @@ Nội dung file cấu hình HAProxy cơ bản gồm 4 phần chính:
 
 ### Weight Round Robin
 
-
+![sensors-20-07342-g002](https://user-images.githubusercontent.com/54473576/227494799-fc67fb0c-5d68-4941-bdd9-ae219219eedb.png)
 
 ### Source Hash
 
@@ -115,10 +115,13 @@ Nội dung file cấu hình HAProxy cơ bản gồm 4 phần chính:
 - Được sử dụng nhiều trong các phiên dài hạn: MariaDB, SQL,...
 - Ít được sử dụng trong các phiên ngắn như: HTTP
 
+![sensors-20-07342-g004-550](https://user-images.githubusercontent.com/54473576/227495178-8740881f-90cb-4867-8272-7be9a6937b38.jpg)
+
 ### Least Response Time
 
-
+-
 
 ### Least Bandwidth Algorithm
 
+-
 
