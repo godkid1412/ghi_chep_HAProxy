@@ -103,6 +103,8 @@ Nội dung file cấu hình HAProxy cơ bản gồm 4 phần chính:
 
 ### Weight Round Robin
 
+- Là thuật toán mở rộng của RR. Đối với RR, server phải xử lý khối lượng request như nhau. Nếu 1 server có nhiều CPU, RAM hơn, thuật toán RR không thể phân phối nhiều request hơn cho server mạnh hơn đc. Khi đó server có khản năng xử lý thấp có thể bị overload.
+- Thuật toán weight RR yêu cầu quản lý cho chỉ định trọng lượng cho mỗi server trên năng lực xử lý
 ![sensors-20-07342-g002](https://user-images.githubusercontent.com/54473576/227494799-fc67fb0c-5d68-4941-bdd9-ae219219eedb.png)
 
 ### Source Hash
@@ -119,7 +121,9 @@ Nội dung file cấu hình HAProxy cơ bản gồm 4 phần chính:
 
 ### Least Response Time
 
--
+- Thuật toán dựa trên thời gian đáp ứng của mỗi server. LB sẽ chọn ra server có thời gian đáp ứng nhanh nhất.
+- Thời gian đáp ứng tính bằng khoảng thời gian giữa 1 gói tin đến server và thời điểm nó nhận đc gói tin trả lời.Việc gửi và nhận do LB đảm nhiệm
+- Thường được sử dụng khi các server ở các vị trí địa lý khác nhau. Người dùng gần server nào thì thời gian ở server đó sẽ nhanh nhất
 
 ### Least Bandwidth Algorithm
 
