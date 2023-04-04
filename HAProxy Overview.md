@@ -109,7 +109,9 @@ Nội dung file cấu hình HAProxy cơ bản gồm 4 phần chính:
 
 ### Source Hash
 
-
+- Là thuật toán sử dụng srcIP và desIP của client và server để tạo 1 hash key. Key này để chỉ định máy chủ cho client
+- Mỗi key đc sinh ra, nếu session bị hỏng, Source Hash method đảm bảo client đc chỉ đích đến server trước đó
+- Điều này rất hữu ích nếu điều quan trọng client kết nối với một phiên vẫn hoạt động sau khi ngắt kết nối và kết nối lại.
 
 ### Least Connections
 
@@ -127,5 +129,11 @@ Nội dung file cấu hình HAProxy cơ bản gồm 4 phần chính:
 
 ### Least Bandwidth Algorithm
 
--
+- LB cấu hình để sử dụng phương thức băng thông ít nhật. CHọn dịch vụ hiện đang phục vụ ít lưu lượng truy cập nhất. Đo bằng Mbps
+
+### Least packet method
+
+- Cấu hình LB để chọn dịch vụ nhận ít packets nhât trong 14s
+
+![Screenshot from 2023-04-03 13-31-02](https://user-images.githubusercontent.com/54473576/229429128-6a784f5f-aeb0-4a54-b9e6-d219bbc161a7.png)
 
