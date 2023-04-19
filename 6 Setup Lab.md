@@ -303,9 +303,50 @@ loose-group_replication_start_on_boot = ON
 ```
 
 
-### Cài đặt đồng bộ thư mục upload ảnh dùng `crontab`
+### Cài đặt đồng bộ thư mục upload ảnh
 
-#### Tại máy chủ WP1
+#### Dùng NFS Server
+
+Dùng WP1 làm NFS server, WP2 làm NFS client
+
+##### Tại máy chủ WP1
+
+Cài đặt NFS server:
+```
+apt install nfs-kernel-server
+```
+
+Để thiết lập chia sẻ thư mục sửa file `/etc/export`
+
+Thêm dòng bên dưới để chia sẻ và phân quyền cho thư mục
+`
+/var/www/html/wp-content/uploads 10.0.0.20(rw,sync,no_subtree_check,no_root_squash)
+`
+
+Trong đó
+- /var/www/html/wp-content/uploads: Thư mục được chia sẻ
+- 10.0.0.20: địa chỉ có thể truy cập, có thể dùng dải mạng
+- (rw,sync,no_subtree_check,no_root_squash): quyền truy cập
+
+Các quyền trong NFS:
+- ro: Read only.
+- rw: Read – write.
+- noaccess: Denied access.
+- root_squash: Ngăn remote root users.
+- no_root_squash: Cho phép remote root users.
+- no_subtree_check: Không kiểm tra subtree
+
+##### Tại máy chủ WP2
+
+Mount thư mục được chia sẻ đến thư mục upload ảnh của wordpress:
+
+```
+sudo mount 10.0.0.10:/var/www/html/wp-content/uploads /var/www/html/wp-content/uploads
+```
+
+#### Dùng crontab và rsync
+
+##### Tại máy chủ WP1
 
 ```
  sudo ssh-keygen -t rsa -b 2048
@@ -328,7 +369,7 @@ sudo crontab -e
 * * * * * sleep 30; sudo rsync -avzhe ssh wp@10.0.0.20:/var/www/html/wp-content/ /var/www/html/wp-content/
 ```
 
-#### Tại máy chủ WP2
+##### Tại máy chủ WP2
 
 ```
  sudo ssh-keygen -t rsa -b 2048
